@@ -59,3 +59,4 @@
   * d. Outputs: a sorted, organized data library
   
 #### 3. Diagram
+![software design](https://user-images.githubusercontent.com/35084839/36528002-95a66022-1768-11e8-8b79-39f710a05492.png)
