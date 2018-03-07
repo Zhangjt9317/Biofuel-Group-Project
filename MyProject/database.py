@@ -6,7 +6,7 @@ def Database():
     data = data_1[['Name','Family', 'FP Exp.', 'CN Exp.']]  ###select columns
     result_1 = data.drop(index=0)   ###rearrange the index
     result_1.reset_index(drop=True, inplace=True)
-    names = ['Name', 'SMILES','Family', 'Flash Point', 'Cetane Number']   ###rename columns
+    names = ['Name','Family', 'Flash Point', 'Cetane Number']   ###rename columns
     result_1.columns = names
     data_2 = pd.read_excel('data/Flash Point and Cetane Number Predictions for Fuel Compounds.xls', skiprows=4)
     result_2 = data_2.loc[: , '-H': 'aaCa']   ###select specific columns
