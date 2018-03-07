@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../..')
 
-import MyProject
+from MyProject import SMILES
 
 def test_SMILES():
     """Check the SMILES function could generate the correct molecular structure,based on input CID number"""
