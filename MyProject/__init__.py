@@ -1,1 +1,2 @@
-from .core import *
+from .database import *
+from .SMILES_generator import *
