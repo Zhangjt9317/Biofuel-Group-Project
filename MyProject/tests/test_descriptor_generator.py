@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../..')
 
-from MyProject import descriptor_generator
+import MyProject
 
 def test_descriptor_generator():
     """Check descriptor_generator can generate correct numbers of functional groups for 
