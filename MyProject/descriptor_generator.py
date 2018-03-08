@@ -2,7 +2,7 @@ import openbabel
 import pybel
 from pybel import Smarts, readstring
 
-import SMILES_generator
+from MyProject import SMILES_generator
 
 
 def descriptor_generator(CID):
