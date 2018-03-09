@@ -18,8 +18,7 @@ def bootstrap(prop, iteration, fraction, family, model):
         sample = df.sample(frac=fraction, replace=True)   ###sample from data
         X = sample[sample.columns[4:]]  ###select functional groups
         y = sample[prop]     ###select properties
-        model = model     ###build model and predict
-        y_pred = model.predict(X)
+        y_pred = model.predict(X)   ###build model and predict
         mse.append(mean_squared_error(y, y_pred))   ###compute mse
         r2.append(r2_score(y, y_pred))   ###compute r2
     mse_avg = np.mean(mse)    ###average mse
