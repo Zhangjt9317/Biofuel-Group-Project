@@ -4,7 +4,7 @@ README v1.0 / 05 MARCH 2018
 
 ## Introduction
 
-This Biofuel Software will predict the family of the input chemicals and predict thermo-physical properties (flashing point and cetane number) according to the family. 
+This Biofuel Software will predict the family of the input chemicals and predict thermo-physical properties (flashing point and cetane number) according to the family. The GUI interface is designed using tkinter.
 
 ## Usage
 
@@ -16,6 +16,9 @@ Provide a short code snippet (if applicable), or short usage instructions
 - Source Code: https://github.com/Zhangjt9317/Biofuel-Group-Project
 
 ## Installation
+
+Packages used in this program include:
+Numpy, Pandas, Matplotlib, Sklearn, Pubchempy, Openbabel, tkinter, xlrd, neupy
 
 ### Requirements
 
