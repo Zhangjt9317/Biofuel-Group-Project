@@ -198,6 +198,17 @@ def GRNN(family, prop):
     grnn.train(x_train, y_train)  #Train the model
     return grnn, train, test
 
+def GRNN_plot(family, prop):
+    """
+    This function is used to make plots according to OLS model.
+    """
+    iteration = 50
+    fraction = 0.1
+    test_size = 0.1
+    model, train, test = GRNN(family, prop, test_size)
+    plot(train, test, iteration, fraction, model, prop, family)  ###make plots
+    return
+
 def MLPR(family, prop):
     """This function is used to predict properties by using the Multiple Layers Perception Regression model."""
     # Input data and define the parameters
