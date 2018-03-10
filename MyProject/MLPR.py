@@ -25,3 +25,11 @@ def MLPR(family, prop, test_size):
     mlpr = MLPRegressor(hidden_layer_sizes=(1000,),activation='identity', solver='sgd', learning_rate='adaptive', max_iter=4000, verbose=False)
     mlpr.fit(x_train, y_train)
     return mlpr, train, test
+
+def MLPR_plot(family, prop, iteration, fraction, test_size):
+    """
+    This function is used to make plots according to OLS model.
+    """
+    model, train, test = MLPR(family, prop, test_size)
+    plot(train, test, iteration, fraction, model, prop, family)  ###make plots
+    return

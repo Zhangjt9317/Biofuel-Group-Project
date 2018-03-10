@@ -31,3 +31,11 @@ def GRNN(family, prop, test_size):
     grnn = algorithms.GRNN(std=0.3,verbose=False,)
     grnn.train(x_train, y_train)
     return grnn, train, test
+
+def GRNN_plot(family, prop, iteration, fraction, test_size):
+    """
+    This function is used to make plots according to GRNN model.
+    """
+    model, train, test = GRNN(family, prop, test_size)
+    plot(train, test, iteration, fraction, model, prop, family)  ###make plots
+    return
