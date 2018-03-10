@@ -12,8 +12,6 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import Ridge
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.neural_network import MLPRegressor
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.model_selection import ShuffleSplit
 from sklearn.model_selection import cross_val_score
@@ -54,7 +52,10 @@ def model_selection(family, prop, iteration, fraction, test_size):
     """
     OLS = OLS_pred(family, prop, test_size)[0]  ###build OLS model
     PLS = PLS_pred(family, prop, test_size)[0]  ###build PLS model
-    models = [OLS, PLS]
+    PNR = PNR_pred(family, prop, test_size)[0]  ###build PNR model
+    grnn = GRNN(family, prop, test_size)[0]   ###build GRNN model
+    mlpr = MLPR(family, prop, test_size)[0]   ###build MLPR model
+    models = [OLS, PLS, PNR, mlpr]
     mse_model = []
     mses_model = []
     mse = []
@@ -182,31 +183,55 @@ def PNR_plot(family, prop, iteration, fraction, test_size):
     plot(train, test, iteration, fraction, model, prop, family)  ###make plots
     return
 
-def GRNN(family, prop, test_size):
+def GRNN(family, prop):
     """This function is used to predict properties by using the General Regression Neural Network model."""
+    test_size = 0.1
     train, test = df_prediction(family, prop, test_size)  ###create data for train and test
     x_train = train[train.columns[4:]]   ###select functional groups
-    y_train = train[prop]
+    y_train = train[prop]    ###select prop groups
 
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    rescaledX = scaler.fit_transform(x_train)
+    scaler = MinMaxScaler(feature_range=(0, 1))  #Rescale model
+    rescaledX = scaler.fit_transform(x_train)   #Rescale x
     np.set_printoptions(precision=4) # summarize transformed data for x,, and also set up the descimal place of the value
     
-    grnn = algorithms.GRNN(std=0.3,verbose=False,)
-    grnn.train(x_train, y_train)
+    grnn = algorithms.GRNN(std=0.3,verbose=False,)    #Set up the model
+    grnn.train(x_train, y_train)  #Train the model
     return grnn, train, test
 
-def MLPR(family, prop, test_size):
+def GRNN_plot(family, prop):
+    """
+    This function is used to make plots according to OLS model.
+    """
+    iteration = 50
+    fraction = 0.1
+    test_size = 0.1
+    model, train, test = GRNN(family, prop, test_size)
+    plot(train, test, iteration, fraction, model, prop, family)  ###make plots
+    return
+
+def MLPR(family, prop):
     """This function is used to predict properties by using the Multiple Layers Perception Regression model."""
     # Input data and define the parameters
-    train, test = df_prediction(family, prop, test_size)
-    x_train = train[train.columns[4:]]
-    y_train = train[prop]
+    test_size = 0.1
+    train, test = df_prediction(family, prop, test_size)   ###create data for train and test
+    x_train = train[train.columns[4:]]   ###select functional groups
+    y_train = train[prop]  ###select prop groups
     
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    rescaledX = scaler.fit_transform(x_train)
+    scaler = MinMaxScaler(feature_range=(0, 1))   #Rescale model
+    rescaledX = scaler.fit_transform(x_train)   #Rescale x
     np.set_printoptions(precision=4) # summarize transformed data for x,, and also set up the descimal place of the value
         
-    mlpr = MLPRegressor(hidden_layer_sizes=(1000,),activation='identity', solver='sgd', learning_rate='adaptive', max_iter=4000, verbose=False)
-    mlpr.fit(x_train, y_train)
+    mlpr = MLPRegressor(hidden_layer_sizes=(1000,),activation='identity', solver='sgd', learning_rate='adaptive', max_iter=4000, verbose=False)   #Set up the model
+    mlpr.fit(x_train, y_train)   #Train the model
     return mlpr, train, test
+
+def MLPR_plot(family, prop):
+    """
+    This function is used to make plots according to OLS model.
+    """
+    iteration = 50
+    fraction = 0.1
+    test_size = 0.1
+    model, train, test = MLPR(family, prop, test_size)
+    plot(train, test, iteration, fraction, model, prop, family)  ###make plots
+    return

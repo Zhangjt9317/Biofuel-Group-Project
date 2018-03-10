@@ -15,23 +15,27 @@ from sklearn.model_selection import cross_val_score
 from neupy import algorithms, layers, environment, estimators
 
 import database
+import df_prediction
 
 
-def GRNN():
-    """General Regression Neural Network"""
-    df = database.Database()
-    df = df[np.isfinite(df['Flash Point'])]
-    xa = np.linspace(200, 550)
-    x = df.loc[:,'[H]':'[cX3H0](:*)(:*):*']
-    y = df['Flash Point']
-    array_x = x.values
-    array_y = y.values
+def GRNN(family, prop, test_size):
+    """This function is used to predict properties by using the General Regression Neural Network model."""
+    train, test = df_prediction.df_prediction(family, prop, test_size)  ###create data for train and test
+    x_train = train[train.columns[4:]]   ###select functional groups
+    y_train = train[prop]
 
     scaler = MinMaxScaler(feature_range=(0, 1))
-    rescaledX = scaler.fit_transform(array_x)
+    rescaledX = scaler.fit_transform(x_train)
     np.set_printoptions(precision=4) # summarize transformed data for x,, and also set up the descimal place of the value
     
-    x_train, x_test, y_train, y_test = train_test_split(rescaledX, array_y, test_size=0.1, random_state=17)
-    
     grnn = algorithms.GRNN(std=0.3,verbose=False,)
-    return grnn
+    grnn.train(x_train, y_train)
+    return grnn, train, test
+
+def GRNN_plot(family, prop, iteration, fraction, test_size):
+    """
+    This function is used to make plots according to GRNN model.
+    """
+    model, train, test = GRNN(family, prop, test_size)
+    plot(train, test, iteration, fraction, model, prop, family)  ###make plots
+    return
