@@ -67,44 +67,25 @@ def descriptor_generator(CID):
         counts.append(len(n))    ###record number of functional group
     return counts
 
-def df_prediction(family, prop, test_size):
+def df_prediction(family, prop):
     """
     This function is used to create train and test data for prediction.
     """
+    test_size = 0.1   ###define test size 
     data = Database()   ###load, select, clear NaN data
     data_f = data[data.Family == family]
     df = data_f[np.isfinite(data_f[prop])]
-    train, test = train_test_split(df, test_size=test_size)  ###split data
+    train, test = train_test_split(df, test_size=test_size, random_state=101)  ###split data
     return train, test
 
-def model_selection(family, prop, iteration, fraction, test_size):
-    """
-    This model is used to select the best model to predict properties according to the minimal mse, the models include
-    Ordinary Least Squares, Partial Least Squares, Polynomial Regression, Artificial Neural Network.
-    """
-    OLS = OLS_pred(family, prop, test_size)[0]  ###build OLS model
-    PLS = PLS_pred(family, prop, test_size)[0]  ###build PLS model
-    PNR = PNR_pred(family, prop, test_size)[0]  ###build PNR model
-    grnn = GRNN(family, prop, test_size)[0]   ###build GRNN model
-    mlpr = MLPR(family, prop, test_size)[0]   ###build MLPR model
-    models = [OLS, PLS, PNR, mlpr]
-    mse_model = []
-    mses_model = []
-    mse = []
-    mses = []
-    for model in models:
-        for i in np.arange(1, iteration+1):   ###find the minimal mse during iteration in a specific model
-            mse_model = bootstrap(prop, i, fraction, family, model)[0]
-            mses_model.append(mse)         
-        mse = min(mses_model)
-        mses.append(mse)  ###add the minimal mse to the list
-    best = mses.index(min(mses))  ###find the minimal mse in all models
-    return models[best]    ###return the best model to predict
 
-def plot(train, test, iteration, fraction, model, prop, family):
+def plot(fraction, model, prop, family):
     """
     This function is used to make parity plot, mse vs. bootstrap samples, r_2 vs. bootstrap samples.
     """
+    iteration = 10  ###define iteration for bootstrap samples
+    
+    train, test = df_prediction(family, prop)
     X_train = train[train.columns[4:]]  ###select functional groups
     X_test = test[test.columns[4:]]
     n = np.arange(1, iteration+1)       ###set bootstrap sample
@@ -121,7 +102,7 @@ def plot(train, test, iteration, fraction, model, prop, family):
     plt.title('Parity Plot', fontsize=16)
     
     for i in n:
-        mse, r2 = bootstrap(prop, i, fraction, family, model)  ###get mse and r2 average for different samples
+        mse, r2 = bootstrap(prop, i, family, model)  ###get mse and r2 average for different samples
         mses.append(mse)
         r2s.append(r2)
     
@@ -138,10 +119,11 @@ def plot(train, test, iteration, fraction, model, prop, family):
     plt.title('Number of Bootstrap Samples vs. $R^2$', fontsize=16)
     return fig
 
-def bootstrap(prop, iteration, fraction, family, model):
+def bootstrap(prop, iteration, family, model):
     """
     This function is used to validate model by resampling method, it will generate mse and r2 average.
     """
+    fraction = 0.8  ###define resample fraction
     data = Database()  ###load dataframe
     data_f = data[data.Family == family]  ###select specific family to resample
     df = data_f[np.isfinite(data_f[prop])]  ###clear the data is NaN
@@ -158,23 +140,31 @@ def bootstrap(prop, iteration, fraction, family, model):
     r2_avg = np.mean(r2)      ###average r2
     return mse_avg, r2_avg
 
-def OLS_pred(family, prop, test_size):
+def OLS_train(family, prop):
     """
-    This function is used to predict properties according to Ordinary Least Squares(linear model). 
+    This function is used to train model according to Ordinary Least Squares(linear model). 
     """
-    train, test = df_prediction(family, prop, test_size)  ###create data for train and test
+    train, test = df_prediction(family, prop)  ###create data for train and test
     OLS = linear_model.LinearRegression()   ###build model
     train_X = train[train.columns[4:]]   ###select functional groups
     OLS.fit(train_X, train[prop])    ###train model
-    return OLS, train, test   ###return model, train, test data to plot
+    return OLS     ###return model
 
-def OLS_plot(family, prop, iteration, fraction, test_size):
+def OLS_test(family, prop):
     """
-    This function is used to make plots according to OLS model.
+    This function is used to test and make plots according to OLS model.
     """
-    model, train, test = OLS_pred(family, prop, test_size)
-    plot(train, test, iteration, fraction, model, prop, family)  ###make plots
+    model= OLS_train(family, prop)
+    plot(model, prop, family)  ###make plots
     return
+
+def OLS_pred(family, prop, fg):
+    """
+    This function is used to predict properties according to Ordinary Least Squares(linear model).
+    """
+    model= OLS_train(family, prop)
+    result = model.predict(fg)[0]
+    return result
 
 def PLS_pred(family, prop, test_size):
     """
