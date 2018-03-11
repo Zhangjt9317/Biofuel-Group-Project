@@ -35,3 +35,15 @@ def test_descriptor_generator():
                       "The descriptor_generator does not work properly")
     return
 
+def test_df_prediction():
+    """
+    This function is used to test df_prediction.
+    """
+    family = 'Alcohols'   ###define parameters
+    prop = 'Flash Point'
+    test_size = 0.1
+    train = df_prediction(family, prop, test_size)[0]
+    test = df_prediction(family, prop, test_size)[1]
+    assert train.shape == (60, 32), "The training data are not right"  ###test the shape of training data
+    assert test.shape == (7, 32), "The testing data are not right"    ### test the shape of testing data
+    return
