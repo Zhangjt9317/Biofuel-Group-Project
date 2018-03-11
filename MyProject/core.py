@@ -1,3 +1,4 @@
+import pubchempy as pcp
 import pandas as pd
 import database
 import pandas as pd
@@ -18,6 +19,9 @@ from sklearn.model_selection import cross_val_score
 from neupy import algorithms, layers, environment, estimators
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.neural_network import MLPRegressor
+import openbabel
+import pybel
+from pybel import Smarts, readstring
 
 
 def Database():
@@ -35,7 +39,6 @@ def Database():
     result = pd.concat([result_1, result_2], axis=1)   ###combine two dataframes into one dataframe
     return result
 
-import pubchempy as pcp
 
 def SMILES(CID):
     """
@@ -47,9 +50,7 @@ def SMILES(CID):
     SMILES = c.canonical_smiles  ###create SMILES structure
     return SMILES
 
-import openbabel
-import pybel
-from pybel import Smarts, readstring
+
 
 def descriptor_generator(CID):
     """Generate the number of each functional group for specific compound according to input CID"""
@@ -65,7 +66,8 @@ def descriptor_generator(CID):
         smarts = Smarts(fg[i])   ###load SMARTS
         n = smarts.findall(mol)  ###find specific functional group, return will be tuples in a list
         counts.append(len(n))    ###record number of functional group
-    return counts
+    X = pd.DataFrame(np.array(counts).reshape(1, -1))  ###reshape the counts
+    return X
 
 def df_prediction(family, prop):
     """
@@ -79,7 +81,7 @@ def df_prediction(family, prop):
     return train, test
 
 
-def plot(fraction, model, prop, family):
+def plot(model, prop, family):
     """
     This function is used to make parity plot, mse vs. bootstrap samples, r_2 vs. bootstrap samples.
     """
@@ -155,55 +157,68 @@ def OLS_test(family, prop):
     This function is used to test and make plots according to OLS model.
     """
     model= OLS_train(family, prop)
-    plot(model, prop, family)  ###make plots
-    return
+    fig = plot(model, prop, family)  ###make plots
+    return fig
 
 def OLS_pred(family, prop, fg):
     """
-    This function is used to predict properties according to Ordinary Least Squares(linear model).
+    This function is used to predict properties according to OLS model.
     """
     model= OLS_train(family, prop)
     result = model.predict(fg)[0]
     return result
 
-def PLS_pred(family, prop, test_size):
+def PLS_train(family, prop):
     """
-    This function is used to predict properties according to Partial Least Squares(linear model).
+    This function is used to train model according to Partial Least Squares(linear model).
     """
-    train, test = df_prediction(family, prop, test_size)  ###create data for train and test
-    pls = PLSRegression()          ###build model
+    train, test = df_prediction(family, prop)  ###create data for train and test
+    PLS = PLSRegression()          ###build model
     train_X = train[train.columns[4:]]   ###select functional groups
-    n = len(train_X.columns)    ###the max number of components
-    param_grid = [{'n_components' : range(1, n+1)}]   ###set the range of parameter
-    PLS = GridSearchCV(PLSRegression(), param_grid)   ###create model
-    PLS.fit(train_X, train[prop])   ###modify the model by searching for best n_components
-    return PLS, train, test   ###return model, train, test data to plot
+    PLS.fit(train_X, train[prop])   ###train model
+    return PLS     ###return model
 
-def PLS_plot(family, prop, iteration, fraction, test_size):
+def PLS_test(family, prop):
     """
-    This function is used to make plots according to PLS model.
+    This function is used to test and make plots according to PLS model.
     """
-    model, train, test = PLS_pred(family, prop, test_size)
-    plot(train, test, iteration, fraction, model, prop, family)  ###make plots
-    return
+    model = PLS_train(family, prop)
+    fig = plot(model, prop, family)  ###make plots
+    return fig
 
-def PNR_pred(family, prop, test_size):
+def PLS_pred(family, prop, fg):
     """
-    This function is used to predict properties according to Polynomial Regression(nonlinear model). 
+    This function is used to predict properties according to PLS model.
     """
-    train, test = df_prediction(family, prop, test_size)  ###create data for train and test
+    model = PLS_train(family, prop)
+    result = model.predict(fg)[0][0]
+    return result
+
+def PNR_train(family, prop):
+    """
+    This function is used to train model according to Polynomial Regression(nonlinear model). 
+    """
+    train, test = df_prediction(family, prop)    ###create data for train and test
     PNR = make_pipeline(PolynomialFeatures(), Ridge())   ###build model
     train_X = train[train.columns[4:]]   ###select functional groups
     PNR.fit(train_X, train[prop])    ###train model
-    return PNR, train, test   ###return model, train, test data to plot
+    return PNR         ###return model
 
-def PNR_plot(family, prop, iteration, fraction, test_size):
+def PNR_test(family, prop):
     """
-    This function is used to make plots according to OLS model.
+    This function is used to test and make plots according to PNR model.
     """
-    model, train, test = PNR_pred(family, prop, test_size)
-    plot(train, test, iteration, fraction, model, prop, family)  ###make plots
-    return
+    model = PNR_train(family, prop)
+    fig = plot(model, prop, family)  ###make plots
+    return fig
+
+def PNR_pred(family, prop, fg):
+    """
+    This function is used to predict properties according to PNR model.
+    """
+    model = PNR_train(family, prop)
+    result = model.predict(fg)[0]
+    return result
 
 def GRNN(family, prop):
     """This function is used to predict properties by using the General Regression Neural Network model."""
