@@ -51,9 +51,6 @@ import openbabel
 import pybel
 from pybel import Smarts, readstring
 
-from MyProject import SMILES_generator
-
-
 def descriptor_generator(CID):
     """Generate the number of each functional group for specific compound according to input CID"""
     fg = ["[H]", "[CX4H3]", "[CX4H2]", "[CX4H1]", "[CX4H0]", "[CX3H2]", "[CX3H1]", "[CX3H0]", "[CX2H1]", 
