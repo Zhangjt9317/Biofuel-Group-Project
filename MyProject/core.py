@@ -74,7 +74,7 @@ def df_prediction(family, prop):
     data = Database()   ###load, select, clear NaN data
     data_f = data[data.Family == family]
     df = data_f[np.isfinite(data_f[prop])]
-    train, test = train_test_split(df, test_size=test_size, random_state=101)  ###split data
+    train, test = train_test_split(df, test_size=test_size, random_state=17)  ###split data
     return train, test
 
 
@@ -242,22 +242,39 @@ def GRNN_plot(family, prop):
 def MLPR(family, prop):
     """This function is used to predict properties by using the Multiple Layers Perception Regression model."""
     # Input data and define the parameters
-    train, test = df_prediction(family, prop)   ###create data for train and test
-    x_train = train[train.columns[4:]]   ###select functional groups
-    y_train = train[prop]  ###select prop groups
+    data = Database()
+    data_f = data[data.Family == family]
+    df = data_f[np.isfinite(data_f[prop])]
+    x = df.loc[:,'[H]':'[cX3H0](:*)(:*):*']
+    y = df[prop]
+    
+    array_x = x.values
+    array_y = y.values
     
     scaler = MinMaxScaler(feature_range=(0, 1))   #Rescale model
-    rescaledX = scaler.fit_transform(x_train)   #Rescale x
+    rescaledX = scaler.fit_transform(array_x)   #Rescale x
     np.set_printoptions(precision=4) # summarize transformed data for x,, and also set up the descimal place of the value
+    
+    x_train, x_test, y_train, y_test = train_test_split(rescaledX, array_y, test_size=0.1, random_state=25)
         
     mlpr = MLPRegressor(hidden_layer_sizes=(1000,),activation='identity', solver='sgd', learning_rate='adaptive', max_iter=4000, verbose=False)   #Set up the model
     mlpr.fit(x_train, y_train)   #Train the model
-    return mlpr, train, test
+    return mlpr, x_train, x_test, y_train, y_test
 
 def MLPR_plot(family, prop):
     """
-    This function is used to make plots according to OLS model.
+    This function is used to make plots according to MLPR model.
     """
-    model, train, test = MLPR(family, prop)
-    plot(model, prop, family)  ###make plots
+    model, x_train, x_test, y_train, y_test = MLPR(family, prop)
+    y_predict = model.predict(x_test)
+    y_predict_train = model.predict(x_train)
+    
+    plt.scatter(y_test, y_predict, color='r', label='testing data')
+    plt.scatter(y_train, y_predict_train,  label='training data')
+    plt.xlabel(prop+'_Actual', fontsize=16)
+    plt.ylabel(prop+'_Predict', fontsize=16)
+    plt.title('Parity Plot', fontsize=16)
+    plt.legend()
+    print(mean_squared_error(y_test, y_predict))
+    print(r2_score(y_test, y_predict))
     return
