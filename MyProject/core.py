@@ -1,7 +1,5 @@
 import pubchempy as pcp
 import pandas as pd
-import database
-import pandas as pd
 import numpy as np
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
@@ -51,7 +49,6 @@ def SMILES(CID):
     return SMILES
 
 
-
 def descriptor_generator(CID):
     """Generate the number of each functional group for specific compound according to input CID"""
     fg = ["[H]", "[CX4H3]", "[CX4H2]", "[CX4H1]", "[CX4H0]", "[CX3H2]", "[CX3H1]", "[CX3H0]", "[CX2H1]", 
@@ -60,7 +57,7 @@ def descriptor_generator(CID):
               "[CX3H0]=[O]", "[CX3H0R]=[O]", "[CX3H1]=[O]", "[CX3H0](=[O])[OX2H1]", "[CX3H0](=[O])[OX2H0]", 
               "[cX3H0](:*)(:*):*"]  ###define SMARTS of functional groups list
     counts = []   ###count functional groups
-    result = SMILES_generator.SMILES(CID)  ###generate SMILES of compound
+    result = SMILES(CID)  ###generate SMILES of compound
     mol = readstring("smi", result)   ###load SMILES
     for i in range(len(fg)):
         smarts = Smarts(fg[i])   ###load SMARTS
@@ -222,8 +219,7 @@ def PNR_pred(family, prop, fg):
 
 def GRNN(family, prop):
     """This function is used to predict properties by using the General Regression Neural Network model."""
-    test_size = 0.1
-    train, test = df_prediction(family, prop, test_size)  ###create data for train and test
+    train, test = df_prediction(family, prop)  ###create data for train and test
     x_train = train[train.columns[4:]]   ###select functional groups
     y_train = train[prop]    ###select prop groups
 
@@ -239,18 +235,14 @@ def GRNN_plot(family, prop):
     """
     This function is used to make plots according to OLS model.
     """
-    iteration = 50
-    fraction = 0.1
-    test_size = 0.1
-    model, train, test = GRNN(family, prop, test_size)
-    plot(train, test, iteration, fraction, model, prop, family)  ###make plots
+    model, train, test = GRNN(family, prop)
+    plot(model, prop, family)  ###make plots
     return
 
 def MLPR(family, prop):
     """This function is used to predict properties by using the Multiple Layers Perception Regression model."""
     # Input data and define the parameters
-    test_size = 0.1
-    train, test = df_prediction(family, prop, test_size)   ###create data for train and test
+    train, test = df_prediction(family, prop)   ###create data for train and test
     x_train = train[train.columns[4:]]   ###select functional groups
     y_train = train[prop]  ###select prop groups
     
@@ -266,9 +258,6 @@ def MLPR_plot(family, prop):
     """
     This function is used to make plots according to OLS model.
     """
-    iteration = 50
-    fraction = 0.1
-    test_size = 0.1
-    model, train, test = MLPR(family, prop, test_size)
-    plot(train, test, iteration, fraction, model, prop, family)  ###make plots
+    model, train, test = MLPR(family, prop)
+    plot(model, prop, family)  ###make plots
     return
