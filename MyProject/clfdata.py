@@ -10,6 +10,7 @@ from sklearn import metrics
 from sklearn.svm import LinearSVC
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
+
 def data_clean():
     """split data and generate train & test subset"""
     df = Database()
@@ -34,20 +35,13 @@ def test_knn():
     X_train, y_train, X_test, y_test = data_clean()
     k = 5
     knn = train_knn(k, X_train, y_train)
-    y_pred = knn.predict(X_test)
+    test_pred = knn.predict(X_test)
     train_pred = knn.predict(X_train)
+    acc = metrics.accuracy_score(y_test, test_pred)
     print('k =', k)
-    print('Accuracy =', metrics.accuracy_score(y_test, y_pred))
-    ax = plt.figure(figsize=(10,8))
-    plt.scatter(y_test, y_pred, marker='s', s=100, label='test')
-    plt.scatter(y_train, train_pred, marker='d', s=60,c='orange', label='train')
-    plt.plot([0,7], [0,7], color='k')
-    plt.xticks(rotation='40')
-    plt.xlabel('Actual Family', fontsize=15)
-    plt.ylabel('Predicted Family', fontsize=15)
-    plt.title('Knn Classification',fontsize=20)
-    plt.legend()
-    return ax
+    print('Accuracy =', acc)
+    return acc
+    
 
 def predict_family_knn(X):
     """predit family of import molecule X"""
@@ -57,6 +51,25 @@ def predict_family_knn(X):
     y_pred = knn.predict(X)
     return y_pred
 
+def plot_knn(y_pred):
+    X_train, y_train, X_test, y_test = data_clean()
+    k = 5
+    knn = train_knn(k, X_train, y_train)
+    test_pred = knn.predict(X_test)
+    train_pred = knn.predict(X_train)
+    acc = metrics.accuracy_score(y_test, test_pred)
+    ax = plt.figure()
+    plt.plot([0,7], [0,7], color='k')
+    plt.scatter(y_train, train_pred, marker='s', s=100,c='c', label='train')
+    plt.scatter(y_test, test_pred, marker='d', s=100, c='orange', label='test')
+    plt.scatter(y_pred, y_pred, marker='*', s=100, c='r', label='prediction')
+    plt.xticks(rotation='40')
+    plt.xlabel('Actual Family', fontsize=15)
+    plt.ylabel('Predicted Family', fontsize=15)
+    plt.title('Knn Classification (k=%d, Accuracy=%.5f)' % (k, acc),fontsize=20)
+    plt.legend()
+    return ax
+
 def train_lda(X_train, y_train):
     lda = LinearDiscriminantAnalysis()
     lda.fit(X_train, y_train)
@@ -65,25 +78,34 @@ def train_lda(X_train, y_train):
 def test_lda():
     X_train, y_train, X_test, y_test = data_clean()
     lda = train_lda(X_train, y_train)
-    y_pred = lda.predict(X_test)
-    train_pred = lda.predict(X_train)
-    print('Accuracy = ', metrics.accuracy_score(y_test, y_pred))
-    ax = plt.figure(figsize=(10,8))
-    plt.scatter(y_test, y_pred, marker='s', s=100, label='test')
-    plt.scatter(y_train, train_pred, marker='d', s=60,c='orange', label='train')
-    plt.plot([0,7], [0,7], color='k')
-    plt.xticks(rotation='40')
-    plt.xlabel('Actual Family', fontsize=15)
-    plt.ylabel('Predicted Family', fontsize=15)
-    plt.title('LDA Classification',fontsize=20)
-    plt.legend()
-    return ax
+    test_pred = lda.predict(X_test)
+    acc = metrics.accuracy_score(y_test, test_pred)
+    print('Accuracy = ', acc)
+    return acc
 
 def predict_family_lda(X):
     X_train, y_train, X_test, y_test = data_clean()
     lda = train_lda(X_train, y_train)
     y_pred = lda.predict(X)
     return y_pred
+
+def plot_lda(y_pred):
+    X_train, y_train, X_test, y_test = data_clean()
+    lda = train_lda(X_train, y_train)
+    test_pred = lda.predict(X_test)
+    train_pred = lda.predict(X_train)
+    acc = metrics.accuracy_score(y_test, test_pred)
+    ax = plt.figure()
+    plt.plot([0,7], [0,7], color='k')
+    plt.scatter(y_train, train_pred, marker='s', s=100,c='c', label='train')
+    plt.scatter(y_test, test_pred, marker='d', s=100, c='orange', label='test')
+    plt.scatter(y_pred, y_pred, marker='*', s=100, c='r', label='prediction')
+    plt.xticks(rotation='40')
+    plt.xlabel('Actual Family', fontsize=15)
+    plt.ylabel('Predicted Family', fontsize=15)
+    plt.title('LDA Classification (Accuracy=%.5f)' % (acc),fontsize=20)
+    plt.legend()
+    return ax
 
 def train_svm(X_train, y_train):
     svm = LinearSVC(random_state=0)
@@ -93,19 +115,10 @@ def train_svm(X_train, y_train):
 def test_svm():
     X_train, y_train, X_test, y_test = data_clean()
     svm = train_svm(X_train, y_train)
-    y_pred = svm.predict(X_test)
-    train_pred = svm.predict(X_train)
-    print('Accuracy = ', metrics.accuracy_score(y_test, y_pred))
-    ax = plt.figure(figsize=(10,8))
-    plt.scatter(y_test, y_pred, marker='s', s=100, label='test')
-    plt.scatter(y_train, train_pred, marker='d', s=60,c='orange', label='train')
-    plt.plot([0,7], [0,7], color='k')
-    plt.xticks(rotation='40')
-    plt.legend()
-    plt.xlabel('Actual Family', fontsize=15)
-    plt.ylabel('Predicted Family', fontsize=15)
-    plt.title('SVM Classification',fontsize=20)
-    return ax
+    test_pred = svm.predict(X_test)
+    acc = metrics.accuracy_score(y_test, test_pred)
+    print('Accuracy = ', acc)
+    return acc
 
 def predict_family_svm(X):
     X_train, y_train, X_test, y_test = data_clean()
@@ -113,3 +126,20 @@ def predict_family_svm(X):
     y_pred = svm.predict(X)
     return y_pred
 
+def plot_svm(y_pred):
+    X_train, y_train, X_test, y_test = data_clean()
+    svm = train_svm(X_train, y_train)
+    test_pred = svm.predict(X_test)
+    train_pred = svm.predict(X_train)
+    acc = metrics.accuracy_score(y_test, test_pred)
+    ax = plt.figure()
+    plt.plot([0,7], [0,7], color='k')
+    plt.scatter(y_train, train_pred, marker='s', s=100,c='c', label='train')
+    plt.scatter(y_test, test_pred, marker='d', s=100, c='orange', label='test')
+    plt.scatter(y_pred, y_pred, marker='*', s=100, c='r', label='prediction')
+    plt.xticks(rotation='40')
+    plt.xlabel('Actual Family', fontsize=15)
+    plt.ylabel('Predicted Family', fontsize=15)
+    plt.title('SVM Classification (Accuracy=%.5f)' % (acc),fontsize=20)
+    plt.legend()
+    return ax
