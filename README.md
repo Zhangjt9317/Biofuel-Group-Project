@@ -8,7 +8,12 @@ This Biofuel Software will predict the family of the input chemicals and predict
 
 ## Usage
 
-Provide a short code snippet (if applicable), or short usage instructions
+To predict the family and the thermo-physical properties  of the imported molecule, user can run the software following the instructions below.
+1. Enter the `CID number` of that chemical. 
+2. Click `Model selection` to chose differient machine learning methods and click `Begin` to confirm selection. 
+3. Then click `Result` to plot the training and predction result.
+
+Or users can run the demo jupyter notebook in sequence.
 
 ## Contribution
 
@@ -19,19 +24,19 @@ Provide a short code snippet (if applicable), or short usage instructions
 
 Packages used in this program include:
 Numpy, Pandas, Matplotlib, Sklearn, Pubchempy, Openbabel, tkinter, xlrd, Neupy. The address of several packages are as following. 
-
 ### Requirements
 
 List anything your project requires in order to work as expected.
 
 ### Installation
 
-This program runs on python. 
-* openbabel:  http://openbabel.org/wiki/Main_Page
-* pubchempy:  https://pubchempy.readthedocs.io/en/latest/
-* tkinter:    https://docs.python.org/2/library/tkinter.html
-* xlrd:       https://pypi.python.org/pypi/xlrd
-* neupy:      http://neupy.com/docs/tutorials.html#
+This program runs on python. User must have the following packages installed in local environment.
+* [Open Babel](http://openbabel.org/wiki/Main_Page): Search, convert, analyze, or store data from molecular modeling.
+* [PyBEL](http://pybel.readthedocs.io/en/latest/): Enables the expression of complex molecular relationships and their context in a machine-readable form
+* [PubChemPy](https://pubchempy.readthedocs.io/en/latest/): Enable chemical searches by CID, name, substructure and conversion between different chemical file formats.
+* [Tkinter](https://docs.python.org/2/library/tkinter.html): Standard Python interface to the Tk GUI toolkit
+* [xlrd](https://pypi.python.org/pypi/xlrd): Extract data from Excel spreadsheets
+* [NeuPy](http://neupy.com/docs/tutorials.html#): Neural Networks in Python
 
 ## Credits
 
