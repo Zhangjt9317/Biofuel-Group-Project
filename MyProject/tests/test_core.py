@@ -56,6 +56,7 @@ def test_df_prediction():
     return
 
 def test_bootstrap():
+    """Check the type of outputs are correct"""
     result1 = type(core.bootstrap('Flash Point', 10, 'Esters', core.OLS_train('Esters', 'Flash Point')))
     result2 = type(core.bootstrap('Flash Point', 10, 'Esters', core.OLS_train('Esters', 'Flash Point'))[0])
     assert result1 == tuple, 'The output is wrong'
@@ -63,6 +64,7 @@ def test_bootstrap():
     return
 
 def test_plot():
+    """Check the type of outputs are correct"""
     assert type(core.plot(core.OLS_train('Esters','Cetane Number'), 'Cetane Number', 'Esters')) == matplotlib.figure.Figure, 'The output is wrong :('
     return
 
