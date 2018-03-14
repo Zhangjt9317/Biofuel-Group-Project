@@ -1,9 +1,15 @@
 import sys
 sys.path.append('../..')
 
-from MyProject import core
-import numpy as np
 import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import LinearSVC
+
+from MyProject import core
+
 
 def test_Database():
     '''Check the shape of the database'''
@@ -67,19 +73,19 @@ def test_model():
     assert result2 == np.float64, 'The output is wrong'
     return
 
-X_train, y_train, X_test, y_test = data_clean()
+X_train, y_train, X_test, y_test = core.data_clean()
 X=X_train.iloc[0:1,:]
 y_pred = 'Esters'
 
 def test_data_clean():
     # four results of data sets should be provided
-    assert len(data_clean()) == 4, "clean_data() breaks"
-    assert type(data_clean()) == tuple, "clean_data() breaks"
+    assert len(core.data_clean()) == 4, "clean_data() breaks"
+    assert type(core.data_clean()) == tuple, "clean_data() breaks"
     return 
 
 def test_train_knn():
     k = 5
-    knn = train_knn(k, X_train, y_train)
+    knn = core.train_knn(k, X_train, y_train)
     # knn should be a classifier
     type(knn) == KNeighborsClassifier, "train_knn() breaks"
     return 
@@ -87,59 +93,59 @@ def test_train_knn():
 def test_test_knn():
     k = 5
     # accuarcy should be possitive
-    assert test_knn() > 0, "test_knn() breaks"
+    assert core.test_knn() > 0, "test_knn() breaks"
     return
     
 
 def test_predict_family_knn():
     # prediction should be an array of family
-    assert type(predict_family_knn(X)) == np.ndarray, "predict_family_knn() breaks"
+    assert type(core.predict_family_knn(X)) == np.ndarray, "predict_family_knn() breaks"
     return
 
 def test_plot_knn():
     # this fuction should provide a figure
-    assert type(plot_knn(y_pred)) == plt.Figure, "plot_knn() breaks"
+    assert type(core.plot_knn(y_pred)) == plt.Figure, "plot_knn() breaks"
     return 
 
 def test_train_lda():
     # lda should be a classifier
-    lda = train_lda(X_train, y_train)
+    lda = core.train_lda(X_train, y_train)
     type(lda) == LinearDiscriminantAnalysis, "train_lda() breaks"
     return 
 
 def test_test_lda():
     # accuarcy should be possitive
-    assert test_lda() > 0, "test_lda() breaks"
+    assert core.test_lda() > 0, "test_lda() breaks"
     return
     
 
 def test_predict_family_lda():
     # prediction should be an array of family
-    assert type(predict_family_lda(X)) == np.ndarray, "predict_family_lda() breaks"
+    assert type(core.predict_family_lda(X)) == np.ndarray, "predict_family_lda() breaks"
     return
 
 def test_plot_lda():
     # this fuction should provide a figure
-    assert type(plot_lda(y_pred)) == plt.Figure, "plot_lda() breaks"
+    assert type(core.plot_lda(y_pred)) == plt.Figure, "plot_lda() breaks"
     return
 
 def test_train_svm():
     # svm should be a classifier
-    svm = train_svm(X_train, y_train)
+    svm = core.train_svm(X_train, y_train)
     type(svm) == LinearSVC, "train_svm() breaks"
     return 
 
 def test_test_svm():
     # accuarcy should be possitive
-    assert test_svm() > 0, "test_svm() breaks"
+    assert core.test_svm() > 0, "test_svm() breaks"
     return
     
 def test_predict_family_svm():
     # prediction should be an array of family
-    assert type(predict_family_svm(X)) == np.ndarray, "predict_family_svm() breaks"
+    assert type(core.predict_family_svm(X)) == np.ndarray, "predict_family_svm() breaks"
     return
 
 def test_plot_svm():
     # this fuction should provide a figure
-    assert type(plot_svm(y_pred)) == plt.Figure, "plot_svm() breaks"
+    assert type(core.plot_svm(y_pred)) == plt.Figure, "plot_svm() breaks"
     return 
