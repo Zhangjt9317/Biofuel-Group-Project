@@ -330,7 +330,7 @@ def train_knn(k, X_train, y_train):
 def test_knn():
     """give classification accuracy"""
     X_train, y_train, X_test, y_test = data_clean()
-    k = 5
+    k = 5 # fix k at 5
     knn = train_knn(k, X_train, y_train)
     test_pred = knn.predict(X_test)
     train_pred = knn.predict(X_train)
@@ -342,7 +342,7 @@ def test_knn():
 def predict_family_knn(X):
     """predit family of import molecule X"""
     X_train, y_train, X_test, y_test = data_clean()
-    k = 5
+    k = 5 # fix k at 5
     knn = train_knn(k, X_train, y_train)
     y_pred = knn.predict(X)
     return y_pred
@@ -350,7 +350,7 @@ def predict_family_knn(X):
 def plot_knn(y_pred):
     """plot a y_pred vs. y_actual figure and show the prediction on it"""
     X_train, y_train, X_test, y_test = data_clean()
-    k = 5
+    k = 5 # fix k at 5
     knn = train_knn(k, X_train, y_train)
     test_pred = knn.predict(X_test)
     train_pred = knn.predict(X_train)
@@ -359,7 +359,7 @@ def plot_knn(y_pred):
     plt.plot([0,7], [0,7], color='k')
     plt.scatter(y_train, train_pred, marker='s', s=100,c='c', label='train')
     plt.scatter(y_test, test_pred, marker='d', s=100, c='orange', label='test')
-    plt.scatter(y_pred, y_pred, marker='*', s=100, c='r', label='prediction')
+    plt.scatter(y_pred, y_pred, marker='*', s=100, c='r', label='prediction') # plot the predictoin dot
     plt.xticks(rotation='40')
     plt.xlabel('Actual Family', fontsize=15)
     plt.ylabel('Predicted Family', fontsize=15)
@@ -401,7 +401,7 @@ def plot_lda(y_pred):
     plt.plot([0,7], [0,7], color='k')
     plt.scatter(y_train, train_pred, marker='s', s=100,c='c', label='train')
     plt.scatter(y_test, test_pred, marker='d', s=100, c='orange', label='test')
-    plt.scatter(y_pred, y_pred, marker='*', s=100, c='r', label='prediction')
+    plt.scatter(y_pred, y_pred, marker='*', s=100, c='r', label='prediction')# plot the predictoin dot
     plt.xticks(rotation='40')
     plt.xlabel('Actual Family', fontsize=15)
     plt.ylabel('Predicted Family', fontsize=15)
@@ -443,7 +443,7 @@ def plot_svm(y_pred):
     plt.plot([0,7], [0,7], color='k')
     plt.scatter(y_train, train_pred, marker='s', s=100,c='c', label='train')
     plt.scatter(y_test, test_pred, marker='d', s=100, c='orange', label='test')
-    plt.scatter(y_pred, y_pred, marker='*', s=100, c='r', label='prediction')
+    plt.scatter(y_pred, y_pred, marker='*', s=100, c='r', label='prediction')# plot the predictoin dot
     plt.xticks(rotation='40')
     plt.xlabel('Actual Family', fontsize=15)
     plt.ylabel('Predicted Family', fontsize=15)
