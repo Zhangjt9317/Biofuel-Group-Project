@@ -1,6 +1,6 @@
-README v1.0 / 14 MARCH 2018
+README v3.0 / 14 MARCH 2018
 
-                                                   Logo: ![Alt](MyProject/2.png "Team Logo")
+Logo: ![Alt](MyProject/2.png "Team Logo")
 
 ### QSPR MODELING: APPLICATION OF MACHINE LEARNING ALOGRITHMS IN CLASSIFYING THE FAMILY AND PREDICTING FLASH POINTS AND CETANE NUMBER OF BIOFUEL COMPOUNDS
 
