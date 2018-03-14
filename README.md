@@ -29,7 +29,7 @@ Our code could only run in the PC mode because some of the packages are only ava
 This program runs on python. User must have the following packages installed in local environment.
 
 Packages used in this program include:
-Numpy, Pandas, Matplotlib, Sklearn, Pubchempy, Openbabel, tkinter, xlrd, Neupy. The address of several packages are as following. 
+Openbabel, Neupy, Numpy, Matplotlib, Pandas, Pubchempy, Sklearn, tkinter, xlrd. The address of several packages are as following. 
 
 * [NeuPy](http://neupy.com/docs/tutorials.html#): Neural Networks package in Python
 * [Open Babel](http://openbabel.org/wiki/Main_Page): Search, convert, analyze, or store data from molecular modeling.
