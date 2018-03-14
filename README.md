@@ -4,7 +4,7 @@ README v1.0 / 05 MARCH 2018
 
 ## Introduction
 
-This Biofuel Software will predict the family of the input chemicals and predict thermo-physical properties (flashing point and cetane number) according to the family. The GUI interface is designed using tkinter. Numerical regression and classification methods, including MLPR, GRNN, OLS, PLS, KNN, SVM, LDA, were used in the machine learning portion to make better predictions of properties. 
+This Biofuel Software will predict the family of the input chemicals and predict thermo-physical properties (flashing point and cetane number) according to the family. The GUI interface is designed using tkinter. Numerical regression and classification methods, including MLPR, GRNN, OLS, PLS, KNN, SVM, LDA, were used in the machine learning portion to make better predictions of properties.
 
 ## Usage
 
