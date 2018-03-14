@@ -20,11 +20,6 @@ Or users can run the demo jupyter notebook in sequence.
 - Issue Tracker: https://github.com/Zhangjt9317/Biofuel-Group-Project/issues
 - Source Code: https://github.com/Zhangjt9317/Biofuel-Group-Project
 
-### Installation
-
-Packages used in this program include:
-Numpy, Pandas, Matplotlib, Sklearn, Pubchempy, Openbabel, tkinter, xlrd, Neupy. The address of several packages are as following. 
-
 ### Requirements
 
 Our code could only run in the PC mode because some of the packages are only available on a PC interface.
@@ -32,6 +27,10 @@ Our code could only run in the PC mode because some of the packages are only ava
 ### Installation
 
 This program runs on python. User must have the following packages installed in local environment.
+
+Packages used in this program include:
+Numpy, Pandas, Matplotlib, Sklearn, Pubchempy, Openbabel, tkinter, xlrd, Neupy. The address of several packages are as following. 
+
 * [NeuPy](http://neupy.com/docs/tutorials.html#): Neural Networks package in Python
 * [Open Babel](http://openbabel.org/wiki/Main_Page): Search, convert, analyze, or store data from molecular modeling.
 * [PubChemPy](https://pubchempy.readthedocs.io/en/latest/): Enable chemical searches by CID, name, substructure and conversion between different chemical file formats.
@@ -49,7 +48,7 @@ Jingtian Zhang, Cheng Zeng, Renlong Zheng, Chenggang Xi
 
 ### Contact
 
-If you are having issues, please contact Cheng Zeng and Jingtian Zhang by zengcheng95@gmail.com, jtz9317@gmail.com
+If you are having issues, please contact Cheng Zeng and Jingtian Zhang by zengcheng95 --At-- gmail.com, jtz9317 --At-- gmail.com
 
 ### License
 
