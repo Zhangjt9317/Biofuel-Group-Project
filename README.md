@@ -37,7 +37,7 @@ This program runs on python. User must have the following packages installed in 
 * [PubChemPy](https://pubchempy.readthedocs.io/en/latest/): Enable chemical searches by CID, name, substructure and conversion between different chemical file formats.
 * [PyBEL](http://pybel.readthedocs.io/en/latest/): Enables the expression of complex molecular relationships and their context in a machine-readable form
 * [Tkinter](https://docs.python.org/2/library/tkinter.html): Standard Python interface to the Tk GUI toolkit
-* [xlrd](https://pypi.python.org/pypi/xlrd): Extract data from Excel spreadsheets
+* [XLRD](https://pypi.python.org/pypi/xlrd): Extract data from Excel spreadsheets
 
 ### One example
 
