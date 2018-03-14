@@ -237,7 +237,7 @@ def GRNN_train(family, prop):
     rescaledX = scaler.fit_transform(x_train)   #Rescale x
     np.set_printoptions(precision=4) # summarize transformed data for x,, and also set up the descimal place of the value
     
-    grnn = algorithms.GRNN(std=0.3,verbose=False,)    #Set up the model
+    grnn = algorithms.GRNN(std=0.4,verbose=False,)    #Set up the model
     grnn.train(x_train, y_train)  #Train the model
     return grnn
 
@@ -254,7 +254,7 @@ def GRNN_pred(family, prop, fg):
     This function is used to predict properties according to GRNN model.
     """
     model = GRNN_train(family, prop)
-    result = model.predict(fg)[0]
+    result = model.predict(fg)[0][0]
     return result
 
 
