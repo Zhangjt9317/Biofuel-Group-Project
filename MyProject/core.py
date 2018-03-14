@@ -74,8 +74,12 @@ def df_prediction(family, prop):
     data = Database()   ###load, select, clear NaN data
     data_f = data[data.Family == family]
     df = data_f[np.isfinite(data_f[prop])]
-    train, test = train_test_split(df, test_size=test_size, random_state=17)  ###split data
-    return train, test
+    if df.shape == (0, 28):
+        tkMessageBox.askretrycancel("shape: ","We are short of data!")
+        return
+    else:
+        train, test = train_test_split(df, test_size=test_size, random_state=17)  ###split data
+        return train, test
 
 
 def plot(model, prop, family):
