@@ -312,7 +312,7 @@ def data_clean():
     df = Database()
     train, test = train_test_split(df, test_size=0.1, random_state=2)
     a = train.loc[:,'[H]': '[cX3H0](:*)(:*):*']
-    X_train = a.mask(a>0, 1)
+    X_train = a.mask(a>0, 1)# transfer the descriptor numbers into 1/0
     y_train = train['Family']
 
     b = test.loc[:,'[H]': '[cX3H0](:*)(:*):*']
@@ -328,7 +328,7 @@ def train_knn(k, X_train, y_train):
     return knn
 
 def test_knn():
-    """plot train and test classification result"""
+    """give classification accuracy"""
     X_train, y_train, X_test, y_test = data_clean()
     k = 5
     knn = train_knn(k, X_train, y_train)
@@ -348,6 +348,7 @@ def predict_family_knn(X):
     return y_pred
 
 def plot_knn(y_pred):
+    """plot a y_pred vs. y_actual figure and show the prediction on it"""
     X_train, y_train, X_test, y_test = data_clean()
     k = 5
     knn = train_knn(k, X_train, y_train)
@@ -368,11 +369,13 @@ def plot_knn(y_pred):
 
 
 def train_lda(X_train, y_train):
+    """use lda method to train data"""
     lda = LinearDiscriminantAnalysis()
     lda.fit(X_train, y_train)
     return lda
 
 def test_lda():
+    """give classification accuracy"""
     X_train, y_train, X_test, y_test = data_clean()
     lda = train_lda(X_train, y_train)
     test_pred = lda.predict(X_test)
@@ -381,12 +384,14 @@ def test_lda():
     return acc
 
 def predict_family_lda(X):
+    """predit family of import molecule X"""
     X_train, y_train, X_test, y_test = data_clean()
     lda = train_lda(X_train, y_train)
     y_pred = lda.predict(X)
     return y_pred
 
 def plot_lda(y_pred):
+    """plot a y_pred vs. y_actual figure and show the prediction on it"""
     X_train, y_train, X_test, y_test = data_clean()
     lda = train_lda(X_train, y_train)
     test_pred = lda.predict(X_test)
@@ -406,11 +411,13 @@ def plot_lda(y_pred):
 
 
 def train_svm(X_train, y_train):
+    """use lda method to train data"""
     svm = LinearSVC(random_state=0)
     svm.fit(X_train, y_train)
     return svm
 
 def test_svm():
+    """give classification accuracy"""
     X_train, y_train, X_test, y_test = data_clean()
     svm = train_svm(X_train, y_train)
     test_pred = svm.predict(X_test)
@@ -419,12 +426,14 @@ def test_svm():
     return acc
 
 def predict_family_svm(X):
+    """predit family of import molecule X"""
     X_train, y_train, X_test, y_test = data_clean()
     svm = train_svm(X_train, y_train)
     y_pred = svm.predict(X)
     return y_pred
 
 def plot_svm(y_pred):
+    """plot a y_pred vs. y_actual figure and show the prediction on it"""
     X_train, y_train, X_test, y_test = data_clean()
     svm = train_svm(X_train, y_train)
     test_pred = svm.predict(X_test)
