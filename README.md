@@ -4,7 +4,7 @@ README v1.0 / 05 MARCH 2018
 
 ## Introduction
 
-This Biofuel Software will predict the family of the input chemicals and predict thermo-physical properties (flashing point and cetane number) according to the family. The GUI interface is designed using tkinter. Numerical regression and classification methods, including MLPR, GRNN, OLS, PLS, KNN, SVM, LDA, were used in the machine learning portion to make better predictions of properties. 
+This Biofuel Software will predict the family of the input chemicals and predict thermo-physical properties (flashing point and cetane number) according to the family. The GUI interface is designed using tkinter. Numerical regression and classification methods, including MLPR, GRNN, OLS, PLS, KNN, SVM, LDA, were used in the machine learning portion to make better predictions of properties.
 
 ## Usage
 
@@ -27,11 +27,11 @@ List anything your project requires in order to work as expected.
 ### Installation
 
 This program runs on python. 
-openbabel:  http://openbabel.org/wiki/Main_Page
-pubchempy:  https://pubchempy.readthedocs.io/en/latest/
-tkinter:    https://docs.python.org/2/library/tkinter.html
-xlrd:       https://pypi.python.org/pypi/xlrd
-neupy:      http://neupy.com/docs/tutorials.html#
+* openbabel:  http://openbabel.org/wiki/Main_Page
+* pubchempy:  https://pubchempy.readthedocs.io/en/latest/
+* tkinter:    https://docs.python.org/2/library/tkinter.html
+* xlrd:       https://pypi.python.org/pypi/xlrd
+* neupy:      http://neupy.com/docs/tutorials.html#
 
 ## Credits
 
@@ -39,7 +39,7 @@ Jingtian Zhang, Cheng Zeng, Renlong Zheng, Chenggang Xi
 
 ## Contact
 
-If you are having issues, please contact Cheng Zeng by zengcheng95 -- At -- gmail.com, jtz9317 --At-- gmail.com
+If you are having issues, please contact Cheng Zeng and Jingtian Zhang by zengcheng95 -- At -- gmail.com, jtz9317 --At-- gmail.com
 
 ## License
 
