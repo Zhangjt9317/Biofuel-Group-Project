@@ -1,9 +1,11 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from database import Database
 import sklearn.model_selection
 from sklearn.model_selection import train_test_split
-from database import Database
+
+
 from sklearn.metrics import mean_squared_error
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import metrics
