@@ -1,29 +1,22 @@
-import pubchempy as pcp
-import pandas as pd
-import numpy as np
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
-from sklearn import linear_model
-from sklearn.model_selection import train_test_split
-from sklearn.cross_decomposition import PLSRegression
-from sklearn.model_selection import GridSearchCV
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.pipeline import make_pipeline
-from sklearn.linear_model import Ridge
-from sklearn.model_selection import RandomizedSearchCV
-from sklearn.model_selection import ShuffleSplit
-from sklearn.model_selection import cross_val_score
 from neupy import algorithms, layers, environment, estimators
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.neural_network import MLPRegressor
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn import metrics
-from sklearn.svm import LinearSVC
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+import numpy as np
 import openbabel
+import pandas as pd
+import pubchempy as pcp
 import pybel
 from pybel import Smarts, readstring
+from sklearn import linear_model, metrics
+from sklearn.cross_decomposition import PLSRegression
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.linear_model import Ridge
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.model_selection import cross_val_score, GridSearchCV, RandomizedSearchCV, ShuffleSplit, train_test_split
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import MinMaxScaler, PolynomialFeatures
+from sklearn.svm import LinearSVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neural_network import MLPRegressor
 
 
 def Database():
@@ -73,6 +66,7 @@ def descriptor_generator(CID):
     X = pd.DataFrame(np.array(counts).reshape(1, -1))  ###reshape the counts
     return X
 
+
 def df_prediction(family, prop):
     """
     This function is used to create train and test data for prediction.
@@ -81,8 +75,8 @@ def df_prediction(family, prop):
     data = Database()   ###load, select, clear NaN data
     data_f = data[data.Family == family]
     df = data_f[np.isfinite(data_f[prop])]
-    if df.shape == (0, 28):
-        tkMessageBox.askretrycancel("shape: ","We are short of data!")
+    if df.shape == (0, 32):
+        raise Exception ('shape', 'We are short of data!')
         return
     else:
         train, test = train_test_split(df, test_size=test_size, random_state=17)  ###split data
@@ -129,6 +123,7 @@ def plot(model, prop, family):
     plt.title('Number of Bootstrap Samples vs. $R^2$', fontsize=16)
     return fig
 
+
 def bootstrap(prop, iteration, family, model):
     """
     This function is used to validate model by resampling method, it will generate mse and r2 average.
@@ -149,6 +144,7 @@ def bootstrap(prop, iteration, family, model):
     mse_avg = np.mean(mse)    ###average mse
     r2_avg = np.mean(r2)      ###average r2
     return mse_avg, r2_avg
+
 
 def OLS_train(family, prop):
     """
@@ -176,6 +172,7 @@ def OLS_pred(family, prop, fg):
     result = model.predict(fg)[0]
     return result
 
+
 def PLS_train(family, prop):
     """
     This function is used to train model according to Partial Least Squares(linear model).
@@ -202,6 +199,7 @@ def PLS_pred(family, prop, fg):
     result = model.predict(fg)[0][0]
     return result
 
+
 def PNR_train(family, prop):
     """
     This function is used to train model according to Polynomial Regression(nonlinear model). 
@@ -227,6 +225,7 @@ def PNR_pred(family, prop, fg):
     model = PNR_train(family, prop)
     result = model.predict(fg)[0]
     return result
+
 
 def GRNN_train(family, prop):
     """This function is used to predict properties by using the General Regression Neural Network model."""
@@ -257,6 +256,7 @@ def GRNN_pred(family, prop, fg):
     model = GRNN_train(family, prop)
     result = model.predict(fg)[0]
     return result
+
 
 def MLPR_train(family, prop):
     """This function is used to predict properties by using the Multiple Layers Perception Regression model."""
@@ -306,6 +306,7 @@ def MLPR_pred(family, prop, fg):
     result = model.predict(fg)[0]
     return result
 
+
 def data_clean():
     """split data and generate train & test subset"""
     df = Database()
@@ -318,6 +319,7 @@ def data_clean():
     X_test = b.mask(b>0, 1)
     y_test = test['Family']
     return X_train, y_train, X_test, y_test
+
 
 def train_knn(k, X_train, y_train):
     """use knn method to train data"""
@@ -337,7 +339,6 @@ def test_knn():
     print('Accuracy =', acc)
     return acc
     
-
 def predict_family_knn(X):
     """predit family of import molecule X"""
     X_train, y_train, X_test, y_test = data_clean()
@@ -364,6 +365,7 @@ def plot_knn(y_pred):
     plt.title('Knn Classification (k=%d, Accuracy=%.5f)' % (k, acc),fontsize=20)
     plt.legend()
     return ax
+
 
 def train_lda(X_train, y_train):
     lda = LinearDiscriminantAnalysis()
@@ -401,6 +403,7 @@ def plot_lda(y_pred):
     plt.title('LDA Classification (Accuracy=%.5f)' % (acc),fontsize=20)
     plt.legend()
     return ax
+
 
 def train_svm(X_train, y_train):
     svm = LinearSVC(random_state=0)
