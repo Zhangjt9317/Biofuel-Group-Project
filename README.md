@@ -1,5 +1,7 @@
 README v1.0 / 14 MARCH 2018
 
+Logo: ![Alt](MyProject/2.png "Team Logo")
+
 ### QSPR MODELING: APPLICATION OF MACHINE LEARNING ALOGRITHMS IN CLASSIFYING THE FAMILY AND PREDICTING FLASH POINTS AND CETANE NUMBER OF BIOFUEL COMPOUNDS
 
 ### Introduction
@@ -10,8 +12,8 @@ This Biofuel Software will predict the family of the input chemicals and predict
 
 To predict the family and the thermo-physical properties  of the imported molecule, user can run the software following the instructions below.
 1. Git clone our GitHub address, and then 'cd' to 'MyProject' folder, next run 'Project_GUI.py' in python.
-2. Enter the `CID number` of that chemical and click `Get CID` to comfirm input. 
-3. Click `Model selection` to chose differient machine learning methods and click `Begin` to confirm selection. 
+2. Enter the `CID number` of that chemical and click `Get CID` to comfirm input. if `Get CID` is not clicked, no CID will be gotten for the machine learning models.
+3. Click `Model selection` to chose differient machine learning methods and properties, and then click `Begin` to confirm selection. 
 4. Then click `Result` to plot the training and predction result.
 
 Or users can run the demo jupyter notebook in sequence.
@@ -23,7 +25,7 @@ Or users can run the demo jupyter notebook in sequence.
 
 ### Requirements
 
-Our code could only run in the PC mode because some of the packages are only available on a PC interface.
+Our code could only run in the PC mode because some of the packages are only available on a PC interface. Please check package availability before running the code.
 
 ### Installation
 
