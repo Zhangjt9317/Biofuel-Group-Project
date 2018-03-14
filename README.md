@@ -32,12 +32,12 @@ Our code could only run in the PC mode because some of the packages are only ava
 ### Installation
 
 This program runs on python. User must have the following packages installed in local environment.
+* [NeuPy](http://neupy.com/docs/tutorials.html#): Neural Networks package in Python
 * [Open Babel](http://openbabel.org/wiki/Main_Page): Search, convert, analyze, or store data from molecular modeling.
-* [PyBEL](http://pybel.readthedocs.io/en/latest/): Enables the expression of complex molecular relationships and their context in a machine-readable form
 * [PubChemPy](https://pubchempy.readthedocs.io/en/latest/): Enable chemical searches by CID, name, substructure and conversion between different chemical file formats.
+* [PyBEL](http://pybel.readthedocs.io/en/latest/): Enables the expression of complex molecular relationships and their context in a machine-readable form
 * [Tkinter](https://docs.python.org/2/library/tkinter.html): Standard Python interface to the Tk GUI toolkit
 * [xlrd](https://pypi.python.org/pypi/xlrd): Extract data from Excel spreadsheets
-* [NeuPy](http://neupy.com/docs/tutorials.html#): Neural Networks package in Python
 
 ### One example
 
