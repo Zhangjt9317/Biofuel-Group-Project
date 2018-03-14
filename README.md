@@ -9,7 +9,7 @@ This Biofuel Software will predict the family of the input chemicals and predict
 ## Usage
 
 To predict the family and the thermo-physical properties  of the imported molecule, user can run the software following the instructions below.
-1. Enter the `CID number` of that chemical. 
+1. Enter the `CID number` of that chemical and click `Git CID` to comfirm input. 
 2. Click `Model selection` to chose differient machine learning methods and click `Begin` to confirm selection. 
 3. Then click `Result` to plot the training and predction result.
 
