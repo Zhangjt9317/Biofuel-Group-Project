@@ -217,7 +217,7 @@ def PNR_pred(family, prop, fg):
     result = model.predict(fg)[0]
     return result
 
-def GRNN(family, prop):
+def GRNN_train(family, prop):
     """This function is used to predict properties by using the General Regression Neural Network model."""
     train, test = df_prediction(family, prop)  ###create data for train and test
     x_train = train[train.columns[4:]]   ###select functional groups
@@ -229,17 +229,25 @@ def GRNN(family, prop):
     
     grnn = algorithms.GRNN(std=0.3,verbose=False,)    #Set up the model
     grnn.train(x_train, y_train)  #Train the model
-    return grnn, train, test
+    return grnn
 
-def GRNN_plot(family, prop):
+def GRNN_test(family, prop):
     """
-    This function is used to make plots according to OLS model.
+    This function is used to make plots according to GRNN model.
     """
-    model, train, test = GRNN(family, prop)
-    plot(model, prop, family)  ###make plots
-    return
+    model= GRNN_train(family, prop)
+    fig = plot(model, prop, family)  ###make plots
+    return fig
 
-def MLPR(family, prop):
+def GRNN_pred(family, prop, fg):
+    """
+    This function is used to predict properties according to GRNN model.
+    """
+    model = GRNN_train(family, prop)
+    result = model.predict(fg)[0]
+    return result
+
+def MLPR_train(family, prop):
     """This function is used to predict properties by using the Multiple Layers Perception Regression model."""
     # Input data and define the parameters
     data = Database()
@@ -255,26 +263,33 @@ def MLPR(family, prop):
     rescaledX = scaler.fit_transform(array_x)   #Rescale x
     np.set_printoptions(precision=4) # summarize transformed data for x,, and also set up the descimal place of the value
     
-    x_train, x_test, y_train, y_test = train_test_split(rescaledX, array_y, test_size=0.1, random_state=25)
+    x_train, x_test, y_train, y_test = train_test_split(rescaledX, array_y, test_size=0.1, random_state=17)
         
     mlpr = MLPRegressor(hidden_layer_sizes=(1000,),activation='identity', solver='sgd', learning_rate='adaptive', max_iter=4000, verbose=False)   #Set up the model
     mlpr.fit(x_train, y_train)   #Train the model
     return mlpr, x_train, x_test, y_train, y_test
 
-def MLPR_plot(family, prop):
+def MLPR_test(family, prop):
     """
     This function is used to make plots according to MLPR model.
     """
-    model, x_train, x_test, y_train, y_test = MLPR(family, prop)
+    model, x_train, x_test, y_train, y_test = MLPR_train(family, prop)
     y_predict = model.predict(x_test)
     y_predict_train = model.predict(x_train)
     
+    fig = plt.figure(figsize=(18, 6))
     plt.scatter(y_test, y_predict, color='r', label='testing data')
     plt.scatter(y_train, y_predict_train,  label='training data')
     plt.xlabel(prop+'_Actual', fontsize=16)
     plt.ylabel(prop+'_Predict', fontsize=16)
     plt.title('Parity Plot', fontsize=16)
     plt.legend()
-    print(mean_squared_error(y_test, y_predict))
-    print(r2_score(y_test, y_predict))
-    return
+    return fig
+
+def MLPR_pred(family, prop, fg):
+    """
+    This function is used to predict properties according to MLPR model.
+    """
+    model = MLPR_train(family, prop)[0]
+    result = model.predict(fg)[0]
+    return result
