@@ -49,7 +49,7 @@ Jingtian Zhang, Cheng Zeng, Renlong Zheng, Chenggang Xi
 
 ### Contact
 
-If you are having issues, please contact Cheng Zeng and Jingtian Zhang by zengcheng95 -- At -- gmail.com, jtz9317 --At-- gmail.com
+If you are having issues, please contact Cheng Zeng and Jingtian Zhang by zengcheng95@gmail.com, jtz9317@gmail.com
 
 ### License
 
