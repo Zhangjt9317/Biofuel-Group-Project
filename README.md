@@ -6,11 +6,11 @@ Logo: ![Alt](MyProject/2.png "Team Logo")
 
 ### Introduction
 
-This Biofuel Software will predict the family of the input chemicals and predict thermo-physical properties (flashing point and cetane number) according to the family. The GUI is designed by using tkinter. Numerical regression and classification methods, including MLPR, GRNN, OLS, PLS, KNN, SVM, LDA, were used in the machine learning approach to make better predictions of family and properties.
+This Biofuel Software will predict the family of the input chemicals and predict thermo-physical properties (flash point and cetane number) according to the family. The GUI is designed by using tkinter. Numerical regression and classification methods, including MLPR, GRNN, OLS, PLS, KNN, SVM, LDA, are used in the machine learning approach to make better predictions of family and properties.
 
 ### Usage
 
-To predict the family and the thermo-physical properties  of the imported molecule, user can run the software following the instructions below.
+To predict the family and the thermo-physical properties of the imported molecule, user can run the software following the instructions below.
 1. Git clone our GitHub address `git clone https://github.com/Zhangjt9317/Biofuel-Group-Project.git`;
 2. Then, users input `cd Biofuel-Group-Project/MyProject` command into bash;
 3. Next, users input `python Project_GUI.py` command to open the Graphic User Interface;
@@ -18,7 +18,6 @@ To predict the family and the thermo-physical properties  of the imported molecu
 5. Click `Model selection` to chose differient machine learning methods and properties, and then click `Begin` to confirm selection;
 6. Then click `Result` to plot the training and predction result.
 
-Or users can run the demo jupyter notebook in sequence.
 
 ### Contribution
 
@@ -26,10 +25,6 @@ Or users can run the demo jupyter notebook in sequence.
 - Source Code: https://github.com/Zhangjt9317/Biofuel-Group-Project
 
 ### Requirements
-
-Our code could only run in the PC mode because some of the packages are only available on a PC interface. Please check package availability before running the code.
-
-### Installation
 
 This program runs on python. User must have the following packages installed in local environment.
 
@@ -39,7 +34,7 @@ Openbabel, Neupy, Numpy, Matplotlib, Pandas, Pubchempy, Sklearn, tkinter, xlrd. 
 * [NeuPy](http://neupy.com/docs/tutorials.html#): Neural Networks package in Python.
 * [Open Babel](http://openbabel.org/wiki/Main_Page): Search, convert, analyze, or store data from molecular modeling.
 * [PubChemPy](https://pubchempy.readthedocs.io/en/latest/): Enable chemical searches by CID, name, substructure and conversion between different chemical file formats.
-* [PyBEL](http://pybel.readthedocs.io/en/latest/): Enables the expression of complex molecular relationships and their context in a machine-readable form
+* [Pybel](https://openbabel.org/docs/dev/UseTheLibrary/PythonInstall.html): Enables the expression of complex molecular relationships and their context in a machine-readable form
 * [Tkinter](https://docs.python.org/2/library/tkinter.html): Standard Python interface to the Tk GUI toolkit
 * [XLRD](https://pypi.python.org/pypi/xlrd): Extract data from Excel spreadsheets
 
