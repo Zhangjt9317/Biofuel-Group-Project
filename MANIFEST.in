@@ -4,9 +4,9 @@ include LICENSE
 # Include README files
 include *.md
 
-#include image
+# Include image
 recursive-include MyProject *.png
 
-#include data
+# Include data
 recursive-include MyProject/data *
 recursive-include MyProject/tests/data *
