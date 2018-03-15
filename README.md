@@ -32,10 +32,10 @@ Packages used in this program include:
 Openbabel, Neupy, Numpy, Matplotlib, Pandas, Pubchempy, Sklearn, tkinter, xlrd. The address of several packages are as following. 
 
 * [NeuPy](http://neupy.com/docs/tutorials.html#): Neural Networks package in Python.
-* [Open Babel](http://openbabel.org/wiki/Main_Page): Search, convert, analyze, or store data from molecular modeling.
-* [PubChemPy](https://pubchempy.readthedocs.io/en/latest/): Enable chemical searches by CID, name, substructure and conversion between different chemical file formats.
+* [Open Babel](http://openbabel.org/wiki/Category:Installation): Search, convert, analyze, or store data from molecular modeling.
+* [PubChemPy](https://pubchempy.readthedocs.io/en/latest/guide/install.html): Enable chemical searches by CID, name, substructure and conversion between different chemical file formats.
 * [Pybel](https://openbabel.org/docs/dev/UseTheLibrary/PythonInstall.html): Enables the expression of complex molecular relationships and their context in a machine-readable form
-* [Tkinter](https://docs.python.org/2/library/tkinter.html): Standard Python interface to the Tk GUI toolkit
+* [Tkinter](http://www.tkdocs.com/tutorial/install.html): Standard Python interface to the Tk GUI toolkit
 * [XLRD](https://pypi.python.org/pypi/xlrd): Extract data from Excel spreadsheets
 
 ### One example
