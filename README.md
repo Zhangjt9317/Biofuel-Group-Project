@@ -36,7 +36,7 @@ This program runs on python. User must have the following packages installed in 
 Packages used in this program include:
 Openbabel, Neupy, Numpy, Matplotlib, Pandas, Pubchempy, Sklearn, tkinter, xlrd. The address of several packages are as following. 
 
-* [NeuPy](http://neupy.com/docs/tutorials.html#): Neural Networks package in Python
+* [NeuPy](http://neupy.com/docs/tutorials.html#): Neural Networks package in Python.
 * [Open Babel](http://openbabel.org/wiki/Main_Page): Search, convert, analyze, or store data from molecular modeling.
 * [PubChemPy](https://pubchempy.readthedocs.io/en/latest/): Enable chemical searches by CID, name, substructure and conversion between different chemical file formats.
 * [PyBEL](http://pybel.readthedocs.io/en/latest/): Enables the expression of complex molecular relationships and their context in a machine-readable form
